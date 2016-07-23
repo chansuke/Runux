@@ -15,7 +15,15 @@ start:
 
     ; load the 64-bit GDT
     lgdt [gdt64.pointer]
-    
+   
+    ; update selectors
+    mov ax, gdt64.data
+    mov ss, ax  ; stack selector
+    mov ds, ax  ; data selector
+    mov es, ax  ; extra selector
+
+    jmp gdt64.code:long_mode_start
+ 
     ; print 'OK'
     mov dword [0xb8000], 0x2f4b2f4f
     hlt
@@ -152,9 +160,10 @@ stack_top:
 section .rodata
 gdt64:
     dq 0 ; zero entry
+.code: equ $ - gdt64 ; new
     dq (1<<44) | (1<<47) | (1<<41) | (1<<43) | (1<<53) ; code segment
+.data: equ $ - gdt64 ; new
     dq (1<<44) | (1<<47) | (1<<41) ; data segment
-    dq (1<<44) | (1<<47) | (1<<41)
-pointer:
+.pointer:
     dw $ - gdt64 - 1
     dq gdt64
