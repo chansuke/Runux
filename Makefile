@@ -34,3 +34,12 @@ $(kernel): $(assembly_object_files) $(linker_script)
 build/arch/$(arch)/%.o: src/arch/$(arch)/%.asm
 	@mkdir -p $(shell dirname $@)
 	@nasm -felf64 $< -o $@
+
+target ?= $(arch)-unknown-linux-gnu
+rust_os := target/$(target)/debug/runux.a
+$(kernel): cargo $(runux) $(assembly_object_files) $(linker_script)
+	@ld -n -T $(linker_script) -o $(kernel) \
+		$(assembly_object_files) $(runux)
+
+cargo:
+       @cargo build --target $(target)

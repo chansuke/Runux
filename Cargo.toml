@@ -1,0 +1,7 @@
+[package]
+name = "runux"
+version = "0.1.0"
+authors = ["Yusuke Abe <abe@mamorio.jp>"]
+
+[lib]
+crate-type = ["staticlib"]
