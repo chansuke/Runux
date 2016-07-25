@@ -5,3 +5,6 @@ authors = ["Yusuke Abe <abe@mamorio.jp>"]
 
 [lib]
 crate-type = ["staticlib"]
+
+[dependencies]
+rlibc = "0.1.4"
