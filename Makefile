@@ -38,7 +38,7 @@ build/arch/$(arch)/%.o: src/arch/$(arch)/%.asm
 target ?= $(arch)-unknown-linux-gnu
 runux := target/$(target)/debug/librunux.a
 $(kernel): cargo $(runux) $(assembly_object_files) $(linker_script)
-	@ld -n -T $(linker_script) -o $(kernel) \
+	@ld -n --gc-section -T $(linker_script) -o $(kernel) \
 		$(assembly_object_files) $(runux)
 
 cargo:
