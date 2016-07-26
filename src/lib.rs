@@ -5,7 +5,13 @@ extern crate rlibc;
 
 #[no_mangle]
 pub extern fn rust_main() {
-    let x = ["Hi", "My", "Name", "Is", "chansuke"];
+    let x = ["Hello", " ", "World", "!"];
+}
+
+#[allow(non_snake_case)]
+#[no_mangle]
+pub extern "C" fn _Unwind_Resume() -> ! {
+    loop {}
 }
 
 #[lang = "eh_personality"] extern fn eh_personality() {}
