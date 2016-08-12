@@ -1,3 +1,11 @@
+use core::ptr::Unique;
+
+pub struct Writer {
+    column_position: usize,
+    color_code: ColorCode,
+    buffer: Unique<Buffer>,
+}
+
 #[allow(dead_code)]
 #[repr(u8)]
 pub enum Color {
@@ -25,4 +33,17 @@ impl ColorCode {
     const fn new (foreground: Color, background: Color) -> ColorCode {
 	ColorCode((background as u8) << 4 | (foreground as u8))
     }
+}
+
+#[repr(C)]
+struct ScreenChar {
+    ascii_character: u8,
+    color_code: ColorCode,
+}
+
+const BUFFER_HEIGHT: usize = 25;
+const BUFFER_WIDTH: usize = 80;
+
+struct Buffer {
+    chars: [[ScreenChar; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
