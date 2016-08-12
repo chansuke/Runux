@@ -27,6 +27,7 @@ pub enum Color {
     White      = 15,
 }
 
+#[derive(Clone, Copy)]
 struct ColorCode(u8);
 
 impl ColorCode {
