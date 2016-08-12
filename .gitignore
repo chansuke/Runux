@@ -5,3 +5,5 @@ boot
 *.iso
 .vagrant
 target
+
+vagrant.log
