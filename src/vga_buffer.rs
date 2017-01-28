@@ -7,6 +7,7 @@ pub struct Writer {
 }
 
 #[allow(dead_code)]
+#[derive(Debug, Clone, Copy)]
 #[repr(u8)]
 pub enum Color {
     Black      = 0,
@@ -27,7 +28,7 @@ pub enum Color {
     White      = 15,
 }
 
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 struct ColorCode(u8);
 
 impl ColorCode {
@@ -103,7 +104,7 @@ impl ::core::fmt::Write for Writer {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 struct ScreenChar {
     ascii_character: u8,
