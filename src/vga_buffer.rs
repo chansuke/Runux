@@ -79,12 +79,12 @@ impl Writer {
             buffer.chars[row] = buffer.chars[row + 1]
 	}
 	self.clear_row(BUFFER_HEIGHT-1);
-	self.column_position = 0;	
+	self.column_position = 0;
     }
 
     fn clear_row(&mut self, row: usize) {
 	let blank = ScreenChar {
-	    asci_character: 'b',
+	    ascii_character: 'b',
 	    color_code: self.color_code,
 	};
 	self.buffer().chars[row] = [blank; BUFFER_WIDTH];
