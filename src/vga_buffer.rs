@@ -7,6 +7,7 @@ pub struct Writer {
 }
 
 #[allow(dead_code)]
+#[derive(Debug, Clone, Copy)]
 #[repr(u8)]
 pub enum Color {
     Black      = 0,
@@ -27,7 +28,7 @@ pub enum Color {
     White      = 15,
 }
 
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 struct ColorCode(u8);
 
 impl ColorCode {
@@ -79,15 +80,17 @@ impl Writer {
             buffer.chars[row] = buffer.chars[row + 1]
 	}
 	self.clear_row(BUFFER_HEIGHT-1);
-	self.column_position = 0;	
+	self.column_position = 0;
     }
 
     fn clear_row(&mut self, row: usize) {
-	let blank = ScreenChar {
-	    asci_character: 'b',
-	    color_code: self.color_code,
-	};
-	self.buffer().chars[row] = [blank; BUFFER_WIDTH];
+        let blank = ScreenChar {
+	        ascii_character: b' ',
+	        color_code: self.color_code,
+	    };
+        for col in 0..BUFFER_WIDTH {
+            self.buffer().chars[row] = [blank; BUFFER_WIDTH];
+        }
     }
 
 }
@@ -101,7 +104,7 @@ impl ::core::fmt::Write for Writer {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 struct ScreenChar {
     ascii_character: u8,

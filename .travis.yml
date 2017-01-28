@@ -1,16 +1,6 @@
 language: rust
-
 rust:
-    - nightly
-
-sudo: false
-
-notifications:
-    email:
-        on_success: never
-        on_failure: change
-
-addons:
-  apt:
-    packages:
-      - nasm
+  - nightly
+matrix:
+  allow_failures:
+    - rust: nightly
